@@ -1,40 +1,38 @@
 <?php
-    require './conta.php';
+    require_once __DIR__ . '/conta.php';
 
     class Cliente {
-        private Conta $conta;
+        private string $nomeCompleto;
+        private string $enderecoEmail;
+        private Conta $contaBancaria;
 
-        public function __construct(
-            private string $nome,
-            private string $email,
-        ) {
-            $this->setNome($nome);
-            $this->setEmail($email);
-            $this->conta = new Conta();
+        public function __construct(string $nomeCompleto, string $enderecoEmail) {
+            $this->setNome($nomeCompleto);
+            $this->setEmail($enderecoEmail);
+            $this->contaBancaria = new Conta();
         }
 
-        public function getNome() : string {
-            return $this->nome;
+        public function getNome(): string {
+            return $this->nomeCompleto;
         }
 
-        public function setNome(string $nome) : void {
-            $this->nome = $nome;
+        public function setNome(string $novoNome): void {
+            $this->nomeCompleto = $novoNome;
         }
 
         public function getEmail(): string {
-            return $this->email;
+            return $this->enderecoEmail;
         }
 
-        public function setEmail(string $email) : void {
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        public function setEmail(string $novoEmail): void {
+            if (!filter_var($novoEmail, FILTER_VALIDATE_EMAIL)) {
                 throw new InvalidArgumentException("E-mail inválido.");
             }
 
-            $this->email = $email;
+            $this->enderecoEmail = $novoEmail;
         }
 
-        public function getConta() : Conta {
-            return $this->conta;
+        public function getConta(): Conta {
+            return $this->contaBancaria;
         }
     }
-?>

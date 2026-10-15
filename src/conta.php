@@ -1,33 +1,29 @@
 <?php
     class Conta {
-        private float $saldo;
-
-        public function __construct() {
-            $this->saldo = 0;
-        }
+        private float $saldoAtual = 0;
 
         public function getSaldo(): float {
-            return $this->saldo;
+            return $this->saldoAtual;
         }
 
-        public function depositar(float $valor) : void {
-            if ($valor <= 0) {
-                throw new InvalidArgumentException("Valor deve ser positivo.");
-            }
-
-            $this->saldo += $valor;
+        public function depositar(float $quantia): void {
+            $this->validarQuantia($quantia);
+            $this->saldoAtual += $quantia;
         }
 
-        public function sacar(float $valor) : void {
-            if ($valor <= 0) {
-                throw new InvalidArgumentException("Valor deve ser positivo.");
-            }
+        public function sacar(float $quantia): void {
+            $this->validarQuantia($quantia);
 
-            if (($this->saldo - $valor) < 0) {
+            if ($quantia > $this->saldoAtual) {
                 throw new InvalidArgumentException("Saldo insuficiente.");
             }
 
-            $this->saldo -= $valor;
+            $this->saldoAtual -= $quantia;
+        }
+
+        private function validarQuantia(float $quantia): void {
+            if ($quantia <= 0) {
+                throw new InvalidArgumentException("Valor deve ser positivo.");
+            }
         }
     }
-?>

@@ -1,24 +1,28 @@
 <?php
-    require './produto.php';
+    require_once __DIR__ . '/produto.php';
 
     class Carrinho {
-        private array $itens = [];
+        private array $listaItens = [];
 
-        public function adicionar(Produto $produto, int $quantidade = 1): void {
-            if (!$produto->temEstoque($quantidade)) {
+        public function adicionar(Produto $prod, int $qtd = 1): void {
+            if (!$prod->temEstoque($qtd)) {
                 throw new Exception("Sem estoque");
             }
 
-            $this->itens[]  = ['produto' => $produto, 'quantidade' => $quantidade];
+            $this->listaItens[] = ['produto' => $prod, 'quantidade' => $qtd];
         }
+
+        public function getItens(): array {
+            return $this->listaItens;
+        }
+
         public function total(): float {
-            $total = 0;
-            
-            foreach ($this->itens as $item) {
-                $total += $item['produto']->getPreco() * $item['quantidade'];
+            $soma = 0;
+
+            foreach ($this->listaItens as $linha) {
+                $soma += $linha['produto']->getPreco() * $linha['quantidade'];
             }
-            
-            return $total;
+
+            return $soma;
         }
     }
-?>

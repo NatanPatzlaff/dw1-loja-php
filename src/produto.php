@@ -1,26 +1,25 @@
 <?php
     class Produto {
         public function __construct(
-            private int $id,
-            private string $nome,
-            private float $preco,
-            private int $estoque
+            private int $codigo,
+            private string $descricao,
+            private float $valorUnitario,
+            private int $qtdDisponivel
         ) {}
 
         public function getId(): int {
-            return $this->id;
+            return $this->codigo;
         }
 
         public function getNome(): string {
-            return $this->nome;
+            return $this->descricao;
         }
 
         public function getPreco(): float {
-            return $this->preco;
+            return $this->valorUnitario;
         }
 
-        public function temEstoque(int $quantidade): bool {
-            return $this->estoque >= $quantidade;
+        public function temEstoque(int $qtdDesejada): bool {
+            return $this->qtdDisponivel >= $qtdDesejada;
         }
     }
-?>
