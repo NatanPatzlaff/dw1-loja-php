@@ -1,7 +1,5 @@
 <?php
-require_once __DIR__ . '/Pagavel.php';
-
-abstract class Produto implements Pagavel {
+abstract class Produto {
     public function __construct(
         protected string $nome,
         protected float $preco

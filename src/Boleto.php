@@ -2,16 +2,13 @@
 require_once __DIR__ . '/Pagavel.php';
 
 class Boleto implements Pagavel {
-    public function __construct(
-        private float $valor
-    ) {}
-
-    public function total(): float {
-        return $this->valor;
+    public function pagar(float $valor): bool {
+        echo "Pagando R$ {$valor} via Boleto - código: {$this->codigoBarras()}<br>";
+        return true;
     }
 
     // Código de barras fictício: 44 dígitos aleatórios
-    public function codigoBarras(): string {
+    private function codigoBarras(): string {
         $codigo = '';
         for ($i = 0; $i < 44; $i++) {
             $codigo .= random_int(0, 9);

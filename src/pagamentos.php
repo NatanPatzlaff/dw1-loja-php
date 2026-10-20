@@ -6,10 +6,16 @@ $itens = [
     new ProdutoFisico("Tênis", 249.9, 1.2),
     new ProdutoDigital("E-book PHP", 39.9, "ebook-php.com/php.pdf"),
     new ProdutoComDesconto("Mochila", 200, 2, 10),
-    new Boleto(150),
 ];
 
+$soma = 0;
 foreach ($itens as $item) {
-    $nome = $item instanceof Produto ? $item->descricao() : "Boleto " . $item->codigoBarras();
-    echo $nome . " | Total: R$ " . number_format($item->total(), 2, ',', '.') . "<br>";
+    echo $item->descricao() . " | Total: R$ " . number_format($item->total(), 2, ',', '.') . "<br>";
+    $soma += $item->total();
+}
+
+echo "<br>";
+$formas = [new Pix(), new Cartao(), new Boleto()];
+foreach ($formas as $forma) {
+    $forma->pagar($soma);
 }
